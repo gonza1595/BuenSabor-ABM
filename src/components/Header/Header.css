@@ -1,0 +1,14 @@
+.btn {
+    color: #FFB20E;
+    background-color: white;
+    border-radius: 8px;
+    margin: 0;
+    font-size: 21px;
+    font-weight: bold;
+
+    /* Anular el estilo de "hover" */
+    &:hover {
+      background-color: white; 
+      color: #FFB20E; 
+    }
+  }
