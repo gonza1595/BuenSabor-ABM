@@ -6,6 +6,7 @@ import { ModalType } from "../../types/ModalType";
 import DeleteButton from "../DeleteButton/DeleteButton";
 import EditButton from "../EditButton/EditButton";
 import Loader from "../Loader/Loader";
+import ProductModal from "../ProductModal/ProductModal";
 
 export default function ProductTable() {
   //Inicializamos un producto por defecto cuando vayamos a crear uno nuevo
@@ -95,6 +96,7 @@ export default function ProductTable() {
     const fetchProducts = async () => {
       const products = await ProductServices.getProducts();
       setProducts(products);
+      setIsLoading(false);
     };
 
     fetchProducts();
@@ -146,7 +148,7 @@ export default function ProductTable() {
                   />
                 </td>
                 <td>
-                  <EditButton
+                  <DeleteButton
                     onClick={() =>
                       handleClick(
                         "Eliminar Producto",
@@ -160,6 +162,16 @@ export default function ProductTable() {
             ))}
           </tbody>
         </Table>
+      )}
+      {showModal && (
+        <ProductModal
+          show={showModal}
+          onHide={() => setShowModal(false)}
+          title={title}
+          modalType={modalType}
+          prod={product}
+          products={setProducts}
+        />
       )}
     </div>
   );
