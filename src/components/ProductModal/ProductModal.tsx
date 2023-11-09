@@ -232,6 +232,42 @@ export default function ProductModal({
                     ))}
                   </Form.Select>
                 </Form.Group>
+
+                {/* Imagen */}
+                <Form.Group controlId="formImagen">
+                  <Form.Label> Imagen </Form.Label>
+                  <Form.Control
+                    name="imagen"
+                    type="text"
+                    value={formik.values.url_Imagen}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    isInvalid={Boolean(
+                      formik.errors.url_Imagen && formik.touched.url_Imagen
+                    )}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {formik.errors.url_Imagen}
+                  </Form.Control.Feedback>
+                </Form.Group>
+
+                {/* Precio de Venta */}
+                <Form.Group controlId="formPrecioVenta">
+                  <Form.Label> Precio de Venta </Form.Label>
+                  <Form.Control
+                    name="precioVenta"
+                    type="text"
+                    value={formik.values.precioVenta}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    isInvalid={Boolean(
+                      formik.errors.precioVenta && formik.touched.precioVenta
+                    )}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {formik.errors.precioVenta}
+                  </Form.Control.Feedback>
+                </Form.Group>
               </Form>
             </Modal.Body>
           </Modal>
