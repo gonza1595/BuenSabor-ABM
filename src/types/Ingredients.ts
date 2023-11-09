@@ -1,7 +1,7 @@
 import { Rubro } from "./Rubro";
-import { DetailArtManufacturado } from "./DetailArtManufacturado";
+import { UnidadMedida } from "./UnidadMedida";
 
-export interface Product {
+export interface Ingredients {
     id: number;
     fechaAlta: string;
     fechaBaja: string;
@@ -11,10 +11,9 @@ export interface Product {
     precioVenta: number;
     estadoArticulo: string;
     rubro: Rubro;
-    tiempoEstimadoCocina: number;
-    precioCosto: number;
-    receta: string;
-    detallesArtManufacturado: DetailArtManufacturado;
+    precioCompra: number;
+    stockActual: number;
+    stockMinimo: number;
+    unidadMedida: UnidadMedida;
     url_Imagen: string;
-  }
-  
+}
