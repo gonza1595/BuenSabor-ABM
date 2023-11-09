@@ -3,11 +3,13 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { ModalType } from "../../types/ModalType";
 import { Product } from "../../types/Product";
 import { Rubro } from "../../types/Rubro";
+import { Ingredients } from "../../types/Ingredients";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { ProductServices } from "../../services/ProductServices";
-import { toast } from "react-toastify";
 import { RubroServices } from "../../services/RubroServices";
+import { IngredientsServices } from "../../services/IngredientsServices";
+import { toast } from "react-toastify";
 
 type ProductModalProps = {
   show: boolean;
@@ -29,6 +31,19 @@ export default function ProductModal({
   //Estado que contiene los rubros recibidos de nuestra API
   const [rubros, setRubros] = useState<Rubro[]>([]);
 
+  //Estado que contiene los ingredientes recibidos de nuestra API
+  const [ingredients, setIngredients] = useState<Ingredients[]>([]);
+
+  //Usamos este hook para obtener los INGREDIENTES cada vez que se renderice el componente
+  useEffect(() => {
+    const fetchIngredients = async () => {
+      const ingredients = await IngredientsServices.getIngredients();
+      setIngredients(ingredients);
+    };
+    fetchIngredients();
+  });
+
+  //Usamos este hook para obtener los rubros cada vez que se renderice el componente
   useEffect(() => {
     const fetchRubros = async () => {
       const rubros = await RubroServices.getRubros();
@@ -267,6 +282,18 @@ export default function ProductModal({
                   <Form.Control.Feedback type="invalid">
                     {formik.errors.precioVenta}
                   </Form.Control.Feedback>
+                </Form.Group>
+
+                {/* Ingredientes */}
+                <Form.Group controlId="formIngredient">
+                  <Form.Label>Ingredientes</Form.Label>
+                  <Form.Select defaultValue="Selecciona un Ingrediente...">
+                    {ingredients.map((ingrediente) => (
+                      <option key={ingrediente.id}>
+                        {ingrediente.denominacion}
+                      </option>
+                    ))}
+                  </Form.Select>
                 </Form.Group>
               </Form>
             </Modal.Body>
