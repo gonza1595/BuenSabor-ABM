@@ -1,4 +1,4 @@
 export enum StateType {
-  ALTA,
-  BAJA,
+  ALTA = "ALTA",
+  BAJA = "BAJA",
 }

@@ -29,6 +29,9 @@ export default function ProductModal({
   prod,
   products,
 }: ProductModalProps) {
+  // Con esta constante nos traemos el enum de estado
+  const estados = Object.keys(StateType);
+
   //Estado que contiene los rubros recibidos de nuestra API
   const [rubros, setRubros] = useState<Rubro[]>([]);
 
@@ -296,6 +299,30 @@ export default function ProductModal({
                     ))}
                   </Form.Select>
                 </Form.Group>
+
+                {/* Estado */}
+                <Form.Group controlId="formEstado">
+                  <Form.Label>Estado</Form.Label>
+                  <Form.Select defaultValue="Selecciona un Estado...">
+                    {estados.map((est) => (
+                      <option>{est}</option>
+                    ))}
+                  </Form.Select>
+                </Form.Group>
+                <Modal.Footer className="mt-4">
+                  <Button variant="secondary" onClick={onHide}>
+                    {" "}
+                    Cancerlar{" "}
+                  </Button>
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    disabled={!formik.isValid}
+                  >
+                    {" "}
+                    Guardar{" "}
+                  </Button>
+                </Modal.Footer>
               </Form>
             </Modal.Body>
           </Modal>

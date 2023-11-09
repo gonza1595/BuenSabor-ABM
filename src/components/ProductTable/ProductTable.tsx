@@ -4,6 +4,7 @@ import { ProductServices } from "../../services/ProductServices";
 import { Button, Table } from "react-bootstrap";
 import { ModalType } from "../../types/ModalType";
 import { StateType } from "../../types/StateType";
+import { RubroType } from "../../types/RubroType";
 import DeleteButton from "../DeleteButton/DeleteButton";
 import EditButton from "../EditButton/EditButton";
 import Loader from "../Loader/Loader";
@@ -28,7 +29,7 @@ export default function ProductTable() {
         fechaModificacion: "",
         denominacion: "",
         estadoRubro: StateType.ALTA,
-        tipoRubro: "",
+        tipoRubro: RubroType.MANUFACTURADO,
       },
       tiempoEstimadoCocina: 0,
       precioCosto: 0,
@@ -51,8 +52,8 @@ export default function ProductTable() {
             fechaBaja: "",
             fechaModificacion: "",
             denominacion: "",
-            estadoRubro: "",
-            tipoRubro: "",
+            estadoRubro: StateType.ALTA,
+            tipoRubro: RubroType.INGREDIENTE,
           },
           precioCompra: 0,
           stockActual: 0,
