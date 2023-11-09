@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { Product } from "../../types/Product";
 import { ProductServices } from "../../services/ProductServices";
-import { Button } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import { ModalType } from "../../types/ModalType";
+import DeleteButton from "../DeleteButton/DeleteButton";
+import EditButton from "../EditButton/EditButton";
+import Loader from "../Loader/Loader";
 
 export default function ProductTable() {
   //Inicializamos un producto por defecto cuando vayamos a crear uno nuevo
@@ -112,6 +115,52 @@ export default function ProductTable() {
         {" "}
         Nuevo Producto
       </Button>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <Table hover>
+          <thead>
+            <tr className="text-center">
+              <th>Nombre</th>
+              <th>Rubro</th>
+              <th>Tiempo de Cocina</th>
+              <th>Precio Venta</th>
+              <th>Estado</th>
+              <th>Editar</th>
+              <th>Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {products.map((product) => (
+              <tr>
+                <td>{product.denominacion}</td>
+                <td>{product.rubro.denominacion}</td>
+                <td>{product.tiempoEstimadoCocina}</td>
+                <td>{product.precioVenta}</td>
+                <td>{product.estadoArticulo}</td>
+                <td>
+                  <EditButton
+                    onClick={() =>
+                      handleClick("Editar Producto", product, ModalType.UPDATE)
+                    }
+                  />
+                </td>
+                <td>
+                  <EditButton
+                    onClick={() =>
+                      handleClick(
+                        "Eliminar Producto",
+                        product,
+                        ModalType.DELETE
+                      )
+                    }
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      )}
     </div>
   );
 }
