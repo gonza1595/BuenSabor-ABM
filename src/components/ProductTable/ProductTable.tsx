@@ -85,7 +85,7 @@ export default function ProductTable() {
     setShowModal(true);
   };
 
-  //Estado que contiene los datos recibidos de nuestra API
+  //Estado que contiene los productos recibidos de nuestra API
   const [products, setProducts] = useState<Product[]>([]);
 
   //Variable que muestra el componente Loader
@@ -134,7 +134,7 @@ export default function ProductTable() {
           </thead>
           <tbody>
             {products.map((product) => (
-              <tr>
+              <tr className="text-center">
                 <td>{product.denominacion}</td>
                 <td>{product.rubro.denominacion}</td>
                 <td>{product.tiempoEstimadoCocina}</td>

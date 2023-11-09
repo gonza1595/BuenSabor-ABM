@@ -1,3 +1,9 @@
+import ProductTable from "../components/ProductTable/ProductTable";
+
 export default function DashboardPage() {
-  return <div>Hola soy un DashboardPage</div>;
+  return (
+    <div>
+      <ProductTable />
+    </div>
+  );
 }

@@ -1,10 +1,13 @@
+import { useState, useEffect } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { ModalType } from "../../types/ModalType";
 import { Product } from "../../types/Product";
+import { Rubro } from "../../types/Rubro";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { ProductServices } from "../../services/ProductServices";
 import { toast } from "react-toastify";
+import { RubroServices } from "../../services/RubroServices";
 
 type ProductModalProps = {
   show: boolean;
@@ -23,6 +26,17 @@ export default function ProductModal({
   prod,
   products,
 }: ProductModalProps) {
+  //Estado que contiene los rubros recibidos de nuestra API
+  const [rubros, setRubros] = useState<Rubro[]>([]);
+
+  useEffect(() => {
+    const fetchRubros = async () => {
+      const rubros = await RubroServices.getRubros();
+      setRubros(rubros);
+    };
+    fetchRubros();
+  });
+
   //CREATE - ACTUALIZAR
   const handleSaveUpdate = async (pro: Product) => {
     try {
@@ -76,7 +90,13 @@ export default function ProductModal({
       tiempoEstimadoCocina: Yup.number().required(
         "El tiempo de cocina es requerido"
       ),
-      rubro: Yup.object().required("Debes seleccionar un rubro"),
+      rubro: Yup.object()
+        .shape({
+          denominacion: Yup.string().required(
+            "La denominacion del rubro es requerida"
+          ),
+        })
+        .required("El rubro es requerido"),
       url_Imagen: Yup.string().required("La URL de la imagen es requerida"),
       precioVenta: Yup.number()
         .min(0)
@@ -131,7 +151,6 @@ export default function ProductModal({
               {/* Formulario */}
               <Form onSubmit={formik.handleSubmit}>
                 {/* Nombre */}
-
                 <Form.Group controlId="formNombre">
                   <Form.Label> Nombre </Form.Label>
                   <Form.Control
@@ -147,6 +166,71 @@ export default function ProductModal({
                   <Form.Control.Feedback type="invalid">
                     {formik.errors.denominacion}
                   </Form.Control.Feedback>
+                </Form.Group>
+
+                {/* Descripcion */}
+                <Form.Group controlId="formDescripcion">
+                  <Form.Label> Descripcion </Form.Label>
+                  <Form.Control
+                    name="descripcion"
+                    type="text"
+                    value={formik.values.descripcion}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    isInvalid={Boolean(
+                      formik.errors.descripcion && formik.touched.descripcion
+                    )}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {formik.errors.descripcion}
+                  </Form.Control.Feedback>
+                </Form.Group>
+
+                {/* Receta */}
+                <Form.Group controlId="formReceta">
+                  <Form.Label> Receta </Form.Label>
+                  <Form.Control
+                    name="receta"
+                    type="text"
+                    value={formik.values.receta}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    isInvalid={Boolean(
+                      formik.errors.receta && formik.touched.receta
+                    )}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {formik.errors.receta}
+                  </Form.Control.Feedback>
+                </Form.Group>
+
+                {/* Tiempo de Cocina */}
+                <Form.Group controlId="formTiempoCocina">
+                  <Form.Label> Tiempo de Cocina </Form.Label>
+                  <Form.Control
+                    name="tiempoCocina"
+                    type="text"
+                    value={formik.values.tiempoEstimadoCocina}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    isInvalid={Boolean(
+                      formik.errors.tiempoEstimadoCocina &&
+                        formik.touched.tiempoEstimadoCocina
+                    )}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {formik.errors.tiempoEstimadoCocina}
+                  </Form.Control.Feedback>
+                </Form.Group>
+
+                {/* Rubro */}
+                <Form.Group controlId="formRubro">
+                  <Form.Label>Rubro</Form.Label>
+                  <Form.Select defaultValue="Selecciona un Rubro...">
+                    {rubros.map((rubro) => (
+                      <option key={rubro.id}>{rubro.denominacion}</option>
+                    ))}
+                  </Form.Select>
                 </Form.Group>
               </Form>
             </Modal.Body>

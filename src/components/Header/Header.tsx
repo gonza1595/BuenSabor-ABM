@@ -5,7 +5,6 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import * as Icon from "react-bootstrap-icons";
 import logo from "../../assets/images/Buen sabor logo 1.png";
-import "./Header.css";
 
 export default function Header() {
   const navigate = useNavigate();
