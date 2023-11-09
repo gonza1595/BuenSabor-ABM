@@ -3,6 +3,7 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { ModalType } from "../../types/ModalType";
 import { Product } from "../../types/Product";
 import { Rubro } from "../../types/Rubro";
+import { StateType } from "../../types/StateType";
 import { Ingredients } from "../../types/Ingredients";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -102,9 +103,9 @@ export default function ProductModal({
       denominacion: Yup.string().required("El nombre es requerido"),
       descripcion: Yup.string().required("La descripcion es requerida"),
       receta: Yup.string().required("La receta es requerida"),
-      tiempoEstimadoCocina: Yup.number().required(
-        "El tiempo de cocina es requerido"
-      ),
+      tiempoEstimadoCocina: Yup.number()
+        .min(0)
+        .required("El tiempo de cocina es requerido"),
       rubro: Yup.object()
         .shape({
           denominacion: Yup.string().required(
@@ -116,7 +117,7 @@ export default function ProductModal({
       precioVenta: Yup.number()
         .min(0)
         .required("El precio de Venta es requerido"),
-      ingredients: Yup.object().required("Debes seleccionar un rubro"),
+      ingredients: Yup.object().required("Debes seleccionar un ingrediente"),
     });
   };
 
@@ -224,7 +225,7 @@ export default function ProductModal({
                   <Form.Label> Tiempo de Cocina </Form.Label>
                   <Form.Control
                     name="tiempoCocina"
-                    type="text"
+                    type="number"
                     value={formik.values.tiempoEstimadoCocina}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -271,7 +272,7 @@ export default function ProductModal({
                   <Form.Label> Precio de Venta </Form.Label>
                   <Form.Control
                     name="precioVenta"
-                    type="text"
+                    type="number"
                     value={formik.values.precioVenta}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}

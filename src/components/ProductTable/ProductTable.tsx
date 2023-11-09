@@ -3,6 +3,7 @@ import { Product } from "../../types/Product";
 import { ProductServices } from "../../services/ProductServices";
 import { Button, Table } from "react-bootstrap";
 import { ModalType } from "../../types/ModalType";
+import { StateType } from "../../types/StateType";
 import DeleteButton from "../DeleteButton/DeleteButton";
 import EditButton from "../EditButton/EditButton";
 import Loader from "../Loader/Loader";
@@ -10,7 +11,6 @@ import ProductModal from "../ProductModal/ProductModal";
 
 export default function ProductTable() {
   //Inicializamos un producto por defecto cuando vayamos a crear uno nuevo
-
   const initializableNewProduct = (): Product => {
     return {
       id: 0,
@@ -20,14 +20,14 @@ export default function ProductTable() {
       denominacion: "",
       descripcion: "",
       precioVenta: 0,
-      estadoArticulo: "",
+      estadoArticulo: StateType.ALTA,
       rubro: {
         id: 0,
         fechaAlta: "",
         fechaBaja: "",
         fechaModificacion: "",
         denominacion: "",
-        estadoRubro: "",
+        estadoRubro: StateType.ALTA,
         tipoRubro: "",
       },
       tiempoEstimadoCocina: 0,
