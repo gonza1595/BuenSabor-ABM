@@ -1,6 +1,5 @@
 import { Button, Form, Modal } from "react-bootstrap";
 import { ModalType } from "../../types/ModalType";
-import { Product } from "../../types/Product";
 import { Rubro } from "../../types/Rubro";
 import { StateType } from "../../types/StateType";
 import { useFormik } from "formik";
