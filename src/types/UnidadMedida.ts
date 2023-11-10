@@ -1,8 +1,5 @@
-
-
 export interface UnidadMedida {
-
-    id: number;
-    denominacion: string;
-    abreviatura: string;
- }
+  id: number;
+  denominacion: string;
+  abreviatura: string;
+}

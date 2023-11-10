@@ -15,18 +15,12 @@ export default function ProductTable() {
   const initializableNewProduct = (): Product => {
     return {
       id: 0,
-      fechaAlta: "",
-      fechaBaja: "",
-      fechaModificacion: "",
       denominacion: "",
       descripcion: "",
       precioVenta: 0,
       estadoArticulo: StateType.Alta,
       rubro: {
         id: 0,
-        fechaAlta: "",
-        fechaBaja: "",
-        fechaModificacion: "",
         denominacion: "",
         estadoRubro: StateType.Alta,
         tipoRubro: RubroType.manufacturado,
@@ -34,39 +28,33 @@ export default function ProductTable() {
       tiempoEstimadoCocina: 0,
       precioCosto: 0,
       receta: "",
-      detallesArtManufacturado: {
-        id: 0,
-        cantidad: 0,
-        articuloInsumo: {
-          id: 0,
-          fechaAlta: "",
-          fechaBaja: "",
-          fechaModificacion: "",
-          denominacion: "",
-          descripcion: "",
-          precioVenta: 0,
-          estadoArticulo: StateType.Alta,
-          rubro: {
-            id: 0,
-            fechaAlta: "",
-            fechaBaja: "",
-            fechaModificacion: "",
-            denominacion: "",
-            estadoRubro: StateType.Alta,
-            tipoRubro: RubroType.insumo,
-          },
-          precioCompra: 0,
-          stockActual: 0,
-          stockMinimo: 0,
-          unidadMedida: {
+      detallesArtManufacturado: [
+        {
+          cantidad: 0,
+          articuloInsumo: {
             id: 0,
             denominacion: "",
-            abreviatura: "",
+            descripcion: "",
+            precioVenta: 0,
+            estadoArticulo: StateType.Alta,
+            rubro: {
+              id: 0,
+              denominacion: "",
+              estadoRubro: StateType.Alta,
+              tipoRubro: RubroType.insumo,
+            },
+            precioCompra: 0,
+            stockActual: 0,
+            stockMinimo: 0,
+            unidadMedida: {
+              id: 0,
+              denominacion: "",
+              abreviatura: "",
+            },
+            url_Imagen: "",
           },
-          url_Imagen: "",
         },
-      },
-
+      ],
       url_Imagen: "",
     };
   };

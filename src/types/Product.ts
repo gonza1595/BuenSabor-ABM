@@ -4,9 +4,6 @@ import { DetailArtManufacturado } from "./DetailArtManufacturado";
 
 export interface Product {
   id: number;
-  fechaAlta: string;
-  fechaBaja: string;
-  fechaModificacion: string;
   denominacion: string;
   descripcion: string;
   precioVenta: number;
@@ -15,6 +12,6 @@ export interface Product {
   tiempoEstimadoCocina: number;
   precioCosto: number;
   receta: string;
-  detallesArtManufacturado: DetailArtManufacturado;
+  detallesArtManufacturado: DetailArtManufacturado[];
   url_Imagen: string;
 }

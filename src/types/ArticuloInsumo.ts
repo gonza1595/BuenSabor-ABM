@@ -4,9 +4,6 @@ import { UnidadMedida } from "./UnidadMedida";
 
 export interface ArticuloInsumo {
   id: number;
-  fechaAlta: string;
-  fechaBaja: string;
-  fechaModificacion: string;
   denominacion: string;
   descripcion: string;
   precioVenta: number;

@@ -239,16 +239,28 @@ export default function ProductModal({
                 <Form.Group controlId="formRubro">
                   <Form.Label>Rubro</Form.Label>
                   <Form.Select
-                    name="rubro.denominacion"
-                    value={formik.values.rubro?.denominacion}
-                    onChange={formik.handleChange}
+                    name="rubro.id"
+                    value={formik.values.rubro.id || ""}
+                    onChange={(e) => {
+                      const selectedRubroId = e.target.value;
+                      const selectedRubro = rubros.find(
+                        (rubro) => rubro.id === parseInt(selectedRubroId)
+                      );
+
+                      formik.setFieldValue("rubro.id", selectedRubroId);
+                      formik.setFieldValue(
+                        "rubro.denominacion",
+                        selectedRubro ? selectedRubro.denominacion : ""
+                      );
+                    }}
                     onBlur={formik.handleBlur}
                     isInvalid={Boolean(
                       formik.errors.rubro && formik.touched.rubro
                     )}
                   >
+                    <option value="">Selecciona un rubro</option>
                     {rubros.map((rubro) => (
-                      <option key={rubro.id} value={rubro.denominacion}>
+                      <option key={rubro.id} value={rubro.id}>
                         {rubro.denominacion}
                       </option>
                     ))}
@@ -295,34 +307,25 @@ export default function ProductModal({
                 </Form.Group>
 
                 {/* Ingrediente */}
-                <Form.Group controlId="formIngredient">
+                {/* <Form.Group controlId="formIngredient">
                   <Form.Label>Ingrediente</Form.Label>
-                  <Form.Select
-                    name="detallesArtManufacturado.articuloInsumo.denominacion"
-                    value={
-                      formik.values.detallesArtManufacturado.articuloInsumo
-                        ?.denominacion || ""
-                    }
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    isInvalid={Boolean(
-                      formik.errors.detallesArtManufacturado?.articuloInsumo
-                        ?.denominacion &&
-                        formik.touched.detallesArtManufacturado?.articuloInsumo
-                          ?.denominacion
-                    )}
-                  >
-                    <option value="">Selecciona un ingrediente</option>
-                    {ingredients.map((ingrediente) => (
-                      <option
-                        key={ingrediente.id}
-                        value={ingrediente.denominacion}
-                      >
-                        {ingrediente.denominacion}
-                      </option>
-                    ))}
-                  </Form.Select>
-                </Form.Group>
+                  {formik.values.detallesArtManufacturado.map((index) => (
+                    <Form.Select
+                      key={index}
+                      name={`detallesArtManufacturado[${index}].articuloInsumo.denominacion`}
+                    >
+                      <option value="">Selecciona un ingrediente</option>
+                      {ingredients.map((ingrediente) => (
+                        <option
+                          key={ingrediente.id}
+                          value={ingrediente.denominacion}
+                        >
+                          {ingrediente.denominacion}
+                        </option>
+                      ))}
+                    </Form.Select>
+                  ))}
+                </Form.Group> */}
 
                 {/* Estado */}
                 <Form.Group controlId="formEstado">
