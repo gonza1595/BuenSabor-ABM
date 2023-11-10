@@ -10,8 +10,8 @@ export interface ArticuloInsumo {
   denominacion: string;
   descripcion: string;
   precioVenta: number;
-  estadoArticulo?: StateType;
-  rubro?: Rubro;
+  estadoArticulo: string;
+  rubro: Rubro;
   precioCompra: number;
   stockActual: number;
   stockMinimo: number;

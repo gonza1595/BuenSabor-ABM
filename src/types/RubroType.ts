@@ -1,4 +1,4 @@
 export enum RubroType {
-  INGREDIENTE,
-  MANUFACTURADO,
+  insumo,
+  manufacturado,
 }

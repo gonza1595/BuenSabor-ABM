@@ -10,7 +10,7 @@ export interface Product {
   denominacion: string;
   descripcion: string;
   precioVenta: number;
-  estadoArticulo?: StateType;
+  estadoArticulo: string;
   rubro: Rubro;
   tiempoEstimadoCocina: number;
   precioCosto: number;

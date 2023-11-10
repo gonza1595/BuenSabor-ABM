@@ -5,6 +5,7 @@ import { Product } from "../../types/Product";
 import { Rubro } from "../../types/Rubro";
 import { StateType } from "../../types/StateType";
 import { ArticuloInsumo } from "../../types/ArticuloInsumo";
+import { RubroType } from "../../types/RubroType";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { ProductServices } from "../../services/ProductServices";
@@ -235,14 +236,27 @@ export default function ProductModal({
                 </Form.Group>
 
                 {/* Rubro */}
-                {/* <Form.Group controlId="formRubro">
+                <Form.Group controlId="formRubro">
                   <Form.Label>Rubro</Form.Label>
-                  <Form.Select>
+                  <Form.Select
+                    name="rubro.denominacion"
+                    value={formik.values.rubro?.denominacion}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    isInvalid={Boolean(
+                      formik.errors.rubro && formik.touched.rubro
+                    )}
+                  >
                     {rubros.map((rubro) => (
-                      <option key={rubro.id}>{rubro.denominacion}</option>
+                      <option key={rubro.id} value={rubro.denominacion}>
+                        {rubro.denominacion}
+                      </option>
                     ))}
                   </Form.Select>
-                </Form.Group> */}
+                  <Form.Control.Feedback type="invalid">
+                    {formik.errors.rubro?.denominacion}
+                  </Form.Control.Feedback>
+                </Form.Group>
 
                 {/* Imagen */}
                 <Form.Group controlId="formImagen">
@@ -295,7 +309,16 @@ export default function ProductModal({
                 {/* Estado */}
                 <Form.Group controlId="formEstado">
                   <Form.Label>Estado</Form.Label>
-                  <Form.Select>
+                  <Form.Select
+                    name="estadoArticulo"
+                    value={formik.values.estadoArticulo}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    isInvalid={Boolean(
+                      formik.errors.estadoArticulo &&
+                        formik.touched.estadoArticulo
+                    )}
+                  >
                     <option value={StateType.Alta}>Alta</option>
                     <option value={StateType.Baja}>Baja</option>
                   </Form.Select>
@@ -303,6 +326,7 @@ export default function ProductModal({
                     {formik.errors.estadoArticulo}
                   </Form.Control.Feedback>
                 </Form.Group>
+
                 <Modal.Footer className="mt-4">
                   <Button variant="secondary" onClick={onHide}>
                     {" "}
