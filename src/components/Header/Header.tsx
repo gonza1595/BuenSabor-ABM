@@ -4,6 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import * as Icon from "react-bootstrap-icons";
+import RubroPage from "../../pages/RubroPage";
 import logo from "../../assets/images/Buen sabor logo 1.png";
 
 export default function Header() {
@@ -27,8 +28,12 @@ export default function Header() {
               <NavDropdown.Item href="#action3">Editar Perfil</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action4">Usuarios</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">Rubros</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">Productos</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => navigate("/rubros")}>
+                Rubros
+              </NavDropdown.Item>
+              <NavDropdown.Item onClick={() => navigate("/productos")}>
+                Productos
+              </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action4">Cerrar Sesion</NavDropdown.Item>
             </NavDropdown>
