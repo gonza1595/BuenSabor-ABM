@@ -10,11 +10,11 @@ export interface Product {
   denominacion: string;
   descripcion: string;
   precioVenta: number;
-  estadoArticulo: string;
+  estadoArticulo: StateType;
   rubro: Rubro;
   tiempoEstimadoCocina: number;
   precioCosto: number;
   receta: string;
-  detallesArtManufacturado: DetailArtManufacturado[];
+  detallesArtManufacturado: DetailArtManufacturado;
   url_Imagen: string;
 }

@@ -294,17 +294,35 @@ export default function ProductModal({
                   </Form.Control.Feedback>
                 </Form.Group>
 
-                {/* Ingredientes */}
-                {/* <Form.Group controlId="formIngredient">
-                  <Form.Label>Ingredientes</Form.Label>
-                  <Form.Select name="articuloInsumo">
+                {/* Ingrediente */}
+                <Form.Group controlId="formIngredient">
+                  <Form.Label>Ingrediente</Form.Label>
+                  <Form.Select
+                    name="detallesArtManufacturado.articuloInsumo.denominacion"
+                    value={
+                      formik.values.detallesArtManufacturado.articuloInsumo
+                        ?.denominacion || ""
+                    }
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    isInvalid={Boolean(
+                      formik.errors.detallesArtManufacturado?.articuloInsumo
+                        ?.denominacion &&
+                        formik.touched.detallesArtManufacturado?.articuloInsumo
+                          ?.denominacion
+                    )}
+                  >
+                    <option value="">Selecciona un ingrediente</option>
                     {ingredients.map((ingrediente) => (
-                      <option key={ingrediente.id}>
+                      <option
+                        key={ingrediente.id}
+                        value={ingrediente.denominacion}
+                      >
                         {ingrediente.denominacion}
                       </option>
                     ))}
                   </Form.Select>
-                </Form.Group> */}
+                </Form.Group>
 
                 {/* Estado */}
                 <Form.Group controlId="formEstado">
