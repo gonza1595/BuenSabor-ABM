@@ -7,6 +7,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { RubroServices } from "../../services/RubroServices";
 import { toast } from "react-toastify";
+import { RubroType } from "../../types/RubroType";
 
 type RubroModalProps = {
   show: boolean;
@@ -36,7 +37,9 @@ export default function RubroModal({
       } else {
         await RubroServices.updateRubro(rubro.id, rubro);
         rubros((prevRubros) =>
-          prevRubros.map((rubro) => (rubro.id === rubro.id ? rubro : rubro))
+          prevRubros.map((rubroEdit) =>
+            rubroEdit.id === rubro.id ? rubro : rubroEdit
+          )
         );
       }
 
@@ -154,6 +157,28 @@ export default function RubroModal({
                   </Form.Select>
                   <Form.Control.Feedback type="invalid">
                     {formik.errors.estadoRubro}
+                  </Form.Control.Feedback>
+                </Form.Group>
+
+                {/* Tipo de Rubro */}
+                <Form.Group controlId="formEstado">
+                  <Form.Label>Tipo de Rubro</Form.Label>
+                  <Form.Select
+                    name="tipoRubro"
+                    value={formik.values.tipoRubro}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    isInvalid={Boolean(
+                      formik.errors.tipoRubro && formik.touched.tipoRubro
+                    )}
+                  >
+                    <option value={RubroType.insumo}>Insumo</option>
+                    <option value={RubroType.manufacturado}>
+                      Manufacturado
+                    </option>
+                  </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    {formik.errors.tipoRubro}
                   </Form.Control.Feedback>
                 </Form.Group>
 

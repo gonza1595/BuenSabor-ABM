@@ -1,4 +1,4 @@
 export enum RubroType {
-  insumo,
-  manufacturado,
+  insumo = "insumo",
+  manufacturado = "manufacturado",
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { RubroServices } from "../../services/RubroServices";
-import { Button, Table } from "react-bootstrap";
+import { Button, Table, Form } from "react-bootstrap";
 import { ModalType } from "../../types/ModalType";
 import { Rubro } from "../../types/Rubro";
 import { RubroType } from "../../types/RubroType";
@@ -43,6 +43,8 @@ export default function RubroTable() {
   //Variable que muestra el componente Loader
   const [isLoading, setIsLoading] = useState(true);
 
+  const [selectedRubroType, setSelectedRubroType] = useState<string>("Todos");
+
   //El useEffect se ejecuta cada vez que se renderice el componente
   useEffect(() => {
     const fetchRubros = async () => {
@@ -54,8 +56,34 @@ export default function RubroTable() {
     fetchRubros();
   }, []);
 
+  const handleRubroTypeChange = (e) => {
+    const selectedType = e.target.value;
+    setSelectedRubroType(selectedType);
+  };
+
+  const filteredRubros =
+    selectedRubroType === "Todos"
+      ? rubros
+      : rubros.filter(
+          (rubro) =>
+            rubro.tipoRubro ===
+            RubroType[selectedRubroType as keyof typeof RubroType] // Convertimos selectedRubroType al tipo de clave del enum "RubroType"
+        );
+
   return (
     <div className="container">
+      <Form.Select
+        className="mt-4 mb-3"
+        onChange={handleRubroTypeChange}
+        value={selectedRubroType}
+      >
+        <option value="Todos">Todos</option>
+        <option value={RubroType.insumo.toString()}>Insumos</option>
+        <option value={RubroType.manufacturado.toString()}>
+          Manufacturados
+        </option>
+      </Form.Select>
+
       <Button
         className="mt-4 mb-3"
         onClick={() =>
@@ -73,15 +101,17 @@ export default function RubroTable() {
             <tr className="text-center">
               <th>Nombre</th>
               <th>Estado</th>
+              <th>Tipo de Rubro</th>
               <th>Editar</th>
               <th>Eliminar</th>
             </tr>
           </thead>
           <tbody>
-            {rubros.map((rubro) => (
+            {filteredRubros.map((rubro) => (
               <tr className="text-center">
                 <td>{rubro.denominacion}</td>
                 <td>{rubro.estadoRubro}</td>
+                <td>{rubro.tipoRubro}</td>
                 <td>
                   <EditButton
                     onClick={() =>
