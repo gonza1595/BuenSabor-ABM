@@ -4,12 +4,12 @@ import { ModalType } from "../../types/ModalType";
 import { Product } from "../../types/Product";
 import { Rubro } from "../../types/Rubro";
 import { StateType } from "../../types/StateType";
-import { Ingredients } from "../../types/Ingredients";
+import { ArticuloInsumo } from "../../types/ArticuloInsumo";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { ProductServices } from "../../services/ProductServices";
 import { RubroServices } from "../../services/RubroServices";
-import { IngredientsServices } from "../../services/IngredientsServices";
+import { ArticuloInsumosServices } from "../../services/ArticuloInsumoServices";
 import { toast } from "react-toastify";
 
 type ProductModalProps = {
@@ -36,15 +36,15 @@ export default function ProductModal({
   const [rubros, setRubros] = useState<Rubro[]>([]);
 
   //Estado que contiene los ingredientes recibidos de nuestra API
-  const [ingredients, setIngredients] = useState<Ingredients[]>([]);
+  const [ingredients, setIngredients] = useState<ArticuloInsumo[]>([]);
 
   //Usamos este hook para obtener los INGREDIENTES cada vez que se renderice el componente
   useEffect(() => {
-    const fetchIngredients = async () => {
-      const ingredients = await IngredientsServices.getIngredients();
-      setIngredients(ingredients);
+    const fetchArticuloInsumo = async () => {
+      const ArticuloInsumo = await ArticuloInsumosServices.getArticuloInsumo();
+      setIngredients(ArticuloInsumo);
     };
-    fetchIngredients();
+    fetchArticuloInsumo();
   });
 
   //Usamos este hook para obtener los rubros cada vez que se renderice el componente
@@ -109,18 +109,10 @@ export default function ProductModal({
       tiempoEstimadoCocina: Yup.number()
         .min(0)
         .required("El tiempo de cocina es requerido"),
-      rubro: Yup.object()
-        .shape({
-          denominacion: Yup.string().required(
-            "La denominacion del rubro es requerida"
-          ),
-        })
-        .required("El rubro es requerido"),
       url_Imagen: Yup.string().required("La URL de la imagen es requerida"),
       precioVenta: Yup.number()
         .min(0)
         .required("El precio de Venta es requerido"),
-      ingredients: Yup.object().required("Debes seleccionar un ingrediente"),
     });
   };
 
@@ -173,9 +165,9 @@ export default function ProductModal({
                 <Form.Group controlId="formNombre">
                   <Form.Label> Nombre </Form.Label>
                   <Form.Control
-                    name="name"
+                    name="denominacion"
                     type="text"
-                    value={formik.values.denominacion}
+                    value={formik.values.denominacion || ""}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     isInvalid={Boolean(
@@ -193,7 +185,7 @@ export default function ProductModal({
                   <Form.Control
                     name="descripcion"
                     type="text"
-                    value={formik.values.descripcion}
+                    value={formik.values.descripcion || ""}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     isInvalid={Boolean(
@@ -211,7 +203,7 @@ export default function ProductModal({
                   <Form.Control
                     name="receta"
                     type="text"
-                    value={formik.values.receta}
+                    value={formik.values.receta || ""}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     isInvalid={Boolean(
@@ -227,9 +219,9 @@ export default function ProductModal({
                 <Form.Group controlId="formTiempoCocina">
                   <Form.Label> Tiempo de Cocina </Form.Label>
                   <Form.Control
-                    name="tiempoCocina"
+                    name="tiempoEstimadoCocina"
                     type="number"
-                    value={formik.values.tiempoEstimadoCocina}
+                    value={formik.values.tiempoEstimadoCocina || ""}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     isInvalid={Boolean(
@@ -243,22 +235,22 @@ export default function ProductModal({
                 </Form.Group>
 
                 {/* Rubro */}
-                <Form.Group controlId="formRubro">
+                {/* <Form.Group controlId="formRubro">
                   <Form.Label>Rubro</Form.Label>
-                  <Form.Select defaultValue="Selecciona un Rubro...">
+                  <Form.Select>
                     {rubros.map((rubro) => (
                       <option key={rubro.id}>{rubro.denominacion}</option>
                     ))}
                   </Form.Select>
-                </Form.Group>
+                </Form.Group> */}
 
                 {/* Imagen */}
                 <Form.Group controlId="formImagen">
                   <Form.Label> Imagen </Form.Label>
                   <Form.Control
-                    name="imagen"
+                    name="url_Imagen"
                     type="text"
-                    value={formik.values.url_Imagen}
+                    value={formik.values.url_Imagen || ""}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     isInvalid={Boolean(
@@ -289,30 +281,32 @@ export default function ProductModal({
                 </Form.Group>
 
                 {/* Ingredientes */}
-                <Form.Group controlId="formIngredient">
+                {/* <Form.Group controlId="formIngredient">
                   <Form.Label>Ingredientes</Form.Label>
-                  <Form.Select defaultValue="Selecciona un Ingrediente...">
+                  <Form.Select name="articuloInsumo">
                     {ingredients.map((ingrediente) => (
                       <option key={ingrediente.id}>
                         {ingrediente.denominacion}
                       </option>
                     ))}
                   </Form.Select>
-                </Form.Group>
+                </Form.Group> */}
 
                 {/* Estado */}
                 <Form.Group controlId="formEstado">
                   <Form.Label>Estado</Form.Label>
-                  <Form.Select defaultValue="Selecciona un Estado...">
-                    {estados.map((est) => (
-                      <option>{est}</option>
-                    ))}
+                  <Form.Select>
+                    <option value={StateType.Alta}>Alta</option>
+                    <option value={StateType.Baja}>Baja</option>
                   </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    {formik.errors.estadoArticulo}
+                  </Form.Control.Feedback>
                 </Form.Group>
                 <Modal.Footer className="mt-4">
                   <Button variant="secondary" onClick={onHide}>
                     {" "}
-                    Cancerlar{" "}
+                    Cancelar{" "}
                   </Button>
                   <Button
                     variant="primary"

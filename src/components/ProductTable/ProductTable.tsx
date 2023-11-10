@@ -21,51 +21,54 @@ export default function ProductTable() {
       denominacion: "",
       descripcion: "",
       precioVenta: 0,
-      estadoArticulo: StateType.ALTA,
+      estadoArticulo: undefined,
       rubro: {
         id: 0,
         fechaAlta: "",
         fechaBaja: "",
         fechaModificacion: "",
         denominacion: "",
-        estadoRubro: StateType.ALTA,
-        tipoRubro: RubroType.MANUFACTURADO,
+        estadoRubro: undefined,
+        tipoRubro: undefined,
       },
       tiempoEstimadoCocina: 0,
       precioCosto: 0,
       receta: "",
-      detallesArtManufacturado: {
-        id: 0,
-        cantidad: 0,
-        articuloInsumo: {
+      detallesArtManufacturado: [
+        {
           id: 0,
-          fechaAlta: "",
-          fechaBaja: "",
-          fechaModificacion: "",
-          denominacion: "",
-          descripcion: "",
-          precioVenta: 0,
-          estadoArticulo: "",
-          rubro: {
+          cantidad: 0,
+          articuloInsumo: {
             id: 0,
             fechaAlta: "",
             fechaBaja: "",
             fechaModificacion: "",
             denominacion: "",
-            estadoRubro: StateType.ALTA,
-            tipoRubro: RubroType.INGREDIENTE,
+            descripcion: "",
+            precioVenta: 0,
+            estadoArticulo: undefined,
+            rubro: {
+              id: 0,
+              fechaAlta: "",
+              fechaBaja: "",
+              fechaModificacion: "",
+              denominacion: "",
+              estadoRubro: undefined,
+              tipoRubro: undefined,
+            },
+            precioCompra: 0,
+            stockActual: 0,
+            stockMinimo: 0,
+            unidadMedida: {
+              id: 0,
+              denominacion: "",
+              abreviatura: "",
+            },
+            url_Imagen: "",
           },
-          precioCompra: 0,
-          stockActual: 0,
-          stockMinimo: 0,
-          unidadMedida: {
-            id: 0,
-            denominacion: "",
-            abreviatura: "",
-          },
-          url_Imagen: "",
         },
-      },
+      ],
+
       url_Imagen: "",
     };
   };
@@ -137,7 +140,7 @@ export default function ProductTable() {
             {products.map((product) => (
               <tr className="text-center">
                 <td>{product.denominacion}</td>
-                <td>{product.rubro.denominacion}</td>
+                <td>{product.rubro?.denominacion}</td>
                 <td>{product.tiempoEstimadoCocina}</td>
                 <td>{product.precioVenta}</td>
                 <td>{product.estadoArticulo}</td>

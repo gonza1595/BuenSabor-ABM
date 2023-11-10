@@ -7,6 +7,6 @@ export interface Rubro {
   fechaBaja: string;
   fechaModificacion: string;
   denominacion: string;
-  estadoRubro: StateType;
-  tipoRubro: RubroType;
+  estadoRubro?: StateType;
+  tipoRubro?: RubroType;
 }
