@@ -5,7 +5,6 @@ import { Product } from "../../types/Product";
 import { Rubro } from "../../types/Rubro";
 import { StateType } from "../../types/StateType";
 import { ArticuloInsumo } from "../../types/ArticuloInsumo";
-import { RubroType } from "../../types/RubroType";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { ProductServices } from "../../services/ProductServices";
@@ -30,9 +29,6 @@ export default function ProductModal({
   prod,
   products,
 }: ProductModalProps) {
-  // Con esta constante nos traemos el enum de estado
-  const estados = Object.keys(StateType);
-
   //Estado que contiene los rubros recibidos de nuestra API
   const [rubros, setRubros] = useState<Rubro[]>([]);
 
@@ -103,17 +99,16 @@ export default function ProductModal({
   //Yup, esquema de validacion
   const validationSchema = () => {
     return Yup.object().shape({
-      id: Yup.number().integer().min(0),
       denominacion: Yup.string().required("El nombre es requerido"),
-      descripcion: Yup.string().required("La descripcion es requerida"),
-      receta: Yup.string().required("La receta es requerida"),
-      tiempoEstimadoCocina: Yup.number()
-        .min(0)
-        .required("El tiempo de cocina es requerido"),
-      url_Imagen: Yup.string().required("La URL de la imagen es requerida"),
-      precioVenta: Yup.number()
-        .min(0)
-        .required("El precio de Venta es requerido"),
+      //   descripcion: Yup.string().required("La descripcion es requerida"),
+      //   receta: Yup.string().required("La receta es requerida"),
+      //   tiempoEstimadoCocina: Yup.number()
+      //     .min(0)
+      //     .required("El tiempo de cocina es requerido"),
+      //   url_Imagen: Yup.string().required("La URL de la imagen es requerida"),
+      //   precioVenta: Yup.number()
+      //     .min(0)
+      //     .required("El precio de Venta es requerido"),
     });
   };
 
@@ -181,7 +176,7 @@ export default function ProductModal({
                 </Form.Group>
 
                 {/* Descripcion */}
-                <Form.Group controlId="formDescripcion">
+                {/* <Form.Group controlId="formDescripcion">
                   <Form.Label> Descripcion </Form.Label>
                   <Form.Control
                     name="descripcion"
@@ -196,10 +191,10 @@ export default function ProductModal({
                   <Form.Control.Feedback type="invalid">
                     {formik.errors.descripcion}
                   </Form.Control.Feedback>
-                </Form.Group>
+                </Form.Group> */}
 
                 {/* Receta */}
-                <Form.Group controlId="formReceta">
+                {/* <Form.Group controlId="formReceta">
                   <Form.Label> Receta </Form.Label>
                   <Form.Control
                     name="receta"
@@ -214,10 +209,10 @@ export default function ProductModal({
                   <Form.Control.Feedback type="invalid">
                     {formik.errors.receta}
                   </Form.Control.Feedback>
-                </Form.Group>
+                </Form.Group> */}
 
                 {/* Tiempo de Cocina */}
-                <Form.Group controlId="formTiempoCocina">
+                {/* <Form.Group controlId="formTiempoCocina">
                   <Form.Label> Tiempo de Cocina </Form.Label>
                   <Form.Control
                     name="tiempoEstimadoCocina"
@@ -233,25 +228,22 @@ export default function ProductModal({
                   <Form.Control.Feedback type="invalid">
                     {formik.errors.tiempoEstimadoCocina}
                   </Form.Control.Feedback>
-                </Form.Group>
+                </Form.Group> */}
 
                 {/* Rubro */}
                 <Form.Group controlId="formRubro">
                   <Form.Label>Rubro</Form.Label>
                   <Form.Select
-                    name="rubro.id"
-                    value={formik.values.rubro.id || ""}
+                    name="rubro" // Solo necesitas el nombre del campo
+                    value={formik.values.rubro ? formik.values.rubro.id : ""}
                     onChange={(e) => {
                       const selectedRubroId = e.target.value;
                       const selectedRubro = rubros.find(
                         (rubro) => rubro.id === parseInt(selectedRubroId)
                       );
 
-                      formik.setFieldValue("rubro.id", selectedRubroId);
-                      formik.setFieldValue(
-                        "rubro.denominacion",
-                        selectedRubro ? selectedRubro.denominacion : ""
-                      );
+                      // Setea el objeto completo de rubro
+                      formik.setFieldValue("rubro", selectedRubro);
                     }}
                     onBlur={formik.handleBlur}
                     isInvalid={Boolean(
@@ -271,7 +263,7 @@ export default function ProductModal({
                 </Form.Group>
 
                 {/* Imagen */}
-                <Form.Group controlId="formImagen">
+                {/* <Form.Group controlId="formImagen">
                   <Form.Label> Imagen </Form.Label>
                   <Form.Control
                     name="url_Imagen"
@@ -286,10 +278,10 @@ export default function ProductModal({
                   <Form.Control.Feedback type="invalid">
                     {formik.errors.url_Imagen}
                   </Form.Control.Feedback>
-                </Form.Group>
+                </Form.Group> */}
 
                 {/* Precio de Venta */}
-                <Form.Group controlId="formPrecioVenta">
+                {/* <Form.Group controlId="formPrecioVenta">
                   <Form.Label> Precio de Venta </Form.Label>
                   <Form.Control
                     name="precioVenta"
@@ -305,7 +297,7 @@ export default function ProductModal({
                     {formik.errors.precioVenta}
                   </Form.Control.Feedback>
                 </Form.Group>
-
+ */}
                 {/* Ingrediente */}
                 {/* <Form.Group controlId="formIngredient">
                   <Form.Label>Ingrediente</Form.Label>
@@ -328,7 +320,7 @@ export default function ProductModal({
                 </Form.Group> */}
 
                 {/* Estado */}
-                <Form.Group controlId="formEstado">
+                {/* <Form.Group controlId="formEstado">
                   <Form.Label>Estado</Form.Label>
                   <Form.Select
                     name="estadoArticulo"
@@ -346,7 +338,7 @@ export default function ProductModal({
                   <Form.Control.Feedback type="invalid">
                     {formik.errors.estadoArticulo}
                   </Form.Control.Feedback>
-                </Form.Group>
+                </Form.Group> */}
 
                 <Modal.Footer className="mt-4">
                   <Button variant="secondary" onClick={onHide}>
