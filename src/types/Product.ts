@@ -1,6 +1,5 @@
-import { Rubro } from "./Rubro";
+import { RubroType } from "./RubroType";
 import { StateType } from "./StateType";
-import { DetailArtManufacturado } from "./DetailArtManufacturado";
 
 export interface Product {
   id: number;
@@ -8,10 +7,41 @@ export interface Product {
   descripcion: string;
   precioVenta: number;
   estadoArticulo: StateType;
-  rubro: Rubro;
+  rubro: {
+    id: number;
+    denominacion: string;
+    estadoRubro: StateType;
+    tipoRubro: RubroType;
+  };
   tiempoEstimadoCocina: number;
   precioCosto: number;
   receta: string;
-  detallesArtManufacturado: DetailArtManufacturado[];
+  detallesArtManufacturado: [
+    {
+      cantidad: number;
+      articuloInsumo: {
+        id: number;
+        denominacion: string;
+        descripcion: string;
+        precioVenta: number;
+        estadoArticulo: StateType;
+        rubro: {
+          id: number;
+          denominacion: string;
+          estadoRubro: StateType;
+          tipoRubro: RubroType;
+        };
+        precioCompra: number;
+        stockActual: number;
+        stockMinimo: number;
+        unidadMedida: {
+          id: number;
+          denominacion: string;
+          abreviatura: string;
+        };
+        url_Imagen: string;
+      };
+    }
+  ];
   url_Imagen: string;
 }

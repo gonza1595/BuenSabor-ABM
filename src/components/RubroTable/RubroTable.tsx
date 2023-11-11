@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { RubroServices } from "../../services/RubroServices";
-import { Button, Table, Form } from "react-bootstrap";
+import { Button, Table, Form, Row } from "react-bootstrap";
 import { ModalType } from "../../types/ModalType";
 import { Rubro } from "../../types/Rubro";
 import { RubroType } from "../../types/RubroType";
@@ -72,17 +72,19 @@ export default function RubroTable() {
 
   return (
     <div className="container">
-      <Form.Select
-        className="mt-4 mb-3"
-        onChange={handleRubroTypeChange}
-        value={selectedRubroType}
-      >
-        <option value="Todos">Todos</option>
-        <option value={RubroType.insumo.toString()}>Insumos</option>
-        <option value={RubroType.manufacturado.toString()}>
-          Manufacturados
-        </option>
-      </Form.Select>
+      <Row>
+        <Form.Select
+          className="mt-4 mb-3"
+          onChange={handleRubroTypeChange}
+          value={selectedRubroType}
+        >
+          <option value="Todos">Todos</option>
+          <option value={RubroType.insumo.toString()}>Insumos</option>
+          <option value={RubroType.manufacturado.toString()}>
+            Manufacturados
+          </option>
+        </Form.Select>
+      </Row>
 
       <Button
         className="mt-4 mb-3"

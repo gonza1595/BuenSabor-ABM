@@ -1,4 +1,4 @@
-import { Button, Form, Modal } from "react-bootstrap";
+import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { ModalType } from "../../types/ModalType";
 import { Rubro } from "../../types/Rubro";
 import { StateType } from "../../types/StateType";
@@ -121,65 +121,68 @@ export default function RubroModal({
             <Modal.Body>
               {/* Formulario */}
               <Form onSubmit={formik.handleSubmit}>
-                {/* Nombre */}
-                <Form.Group controlId="formNombre">
-                  <Form.Label> Nombre </Form.Label>
-                  <Form.Control
-                    name="denominacion"
-                    type="text"
-                    value={formik.values.denominacion || ""}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    isInvalid={Boolean(
-                      formik.errors.denominacion && formik.touched.denominacion
-                    )}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {formik.errors.denominacion}
-                  </Form.Control.Feedback>
-                </Form.Group>
+                <Row>
+                  {/* Nombre */}
+                  <Form.Group as={Col} controlId="formNombre">
+                    <Form.Label> Nombre </Form.Label>
+                    <Form.Control
+                      name="denominacion"
+                      type="text"
+                      value={formik.values.denominacion || ""}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      isInvalid={Boolean(
+                        formik.errors.denominacion &&
+                          formik.touched.denominacion
+                      )}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {formik.errors.denominacion}
+                    </Form.Control.Feedback>
+                  </Form.Group>
 
-                {/* Estado */}
-                <Form.Group controlId="formEstado">
-                  <Form.Label>Estado</Form.Label>
-                  <Form.Select
-                    name="estadoRubro"
-                    value={formik.values.estadoRubro}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    isInvalid={Boolean(
-                      formik.errors.estadoRubro && formik.touched.estadoRubro
-                    )}
-                  >
-                    <option value={StateType.Alta}>Alta</option>
-                    <option value={StateType.Baja}>Baja</option>
-                  </Form.Select>
-                  <Form.Control.Feedback type="invalid">
-                    {formik.errors.estadoRubro}
-                  </Form.Control.Feedback>
-                </Form.Group>
+                  {/* Estado */}
+                  <Form.Group as={Col} controlId="formEstado">
+                    <Form.Label>Estado</Form.Label>
+                    <Form.Select
+                      name="estadoRubro"
+                      value={formik.values.estadoRubro}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      isInvalid={Boolean(
+                        formik.errors.estadoRubro && formik.touched.estadoRubro
+                      )}
+                    >
+                      <option value={StateType.Alta}>Alta</option>
+                      <option value={StateType.Baja}>Baja</option>
+                    </Form.Select>
+                    <Form.Control.Feedback type="invalid">
+                      {formik.errors.estadoRubro}
+                    </Form.Control.Feedback>
+                  </Form.Group>
 
-                {/* Tipo de Rubro */}
-                <Form.Group controlId="formEstado">
-                  <Form.Label>Tipo de Rubro</Form.Label>
-                  <Form.Select
-                    name="tipoRubro"
-                    value={formik.values.tipoRubro}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    isInvalid={Boolean(
-                      formik.errors.tipoRubro && formik.touched.tipoRubro
-                    )}
-                  >
-                    <option value={RubroType.insumo}>Insumo</option>
-                    <option value={RubroType.manufacturado}>
-                      Manufacturado
-                    </option>
-                  </Form.Select>
-                  <Form.Control.Feedback type="invalid">
-                    {formik.errors.tipoRubro}
-                  </Form.Control.Feedback>
-                </Form.Group>
+                  {/* Tipo de Rubro */}
+                  <Form.Group as={Col} controlId="formEstado">
+                    <Form.Label>Tipo de Rubro</Form.Label>
+                    <Form.Select
+                      name="tipoRubro"
+                      value={formik.values.tipoRubro}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      isInvalid={Boolean(
+                        formik.errors.tipoRubro && formik.touched.tipoRubro
+                      )}
+                    >
+                      <option value={RubroType.insumo}>Insumo</option>
+                      <option value={RubroType.manufacturado}>
+                        Manufacturado
+                      </option>
+                    </Form.Select>
+                    <Form.Control.Feedback type="invalid">
+                      {formik.errors.tipoRubro}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Row>
 
                 <Modal.Footer className="mt-4">
                   <Button variant="secondary" onClick={onHide}>

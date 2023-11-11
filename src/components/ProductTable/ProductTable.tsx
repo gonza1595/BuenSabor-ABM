@@ -117,6 +117,7 @@ export default function ProductTable() {
               <th>Rubro</th>
               <th>Tiempo de Cocina</th>
               <th>Precio Venta</th>
+
               <th>Estado</th>
               <th>Editar</th>
               <th>Eliminar</th>
@@ -129,6 +130,7 @@ export default function ProductTable() {
                 <td>{product.rubro?.denominacion}</td>
                 <td>{product.tiempoEstimadoCocina}</td>
                 <td>{product.precioVenta}</td>
+
                 <td>{product.estadoArticulo}</td>
                 <td>
                   <EditButton
