@@ -32,7 +32,9 @@ export default function Header() {
               <NavDropdown.Item onClick={() => navigate("/productos")}>
                 Productos
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action4">Usuarios</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => navigate("/ingredientes")}>
+                Ingredientes
+              </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action4">Cerrar Sesion</NavDropdown.Item>
             </NavDropdown>
