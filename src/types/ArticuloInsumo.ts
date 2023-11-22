@@ -1,6 +1,5 @@
-import { Rubro } from "./Rubro";
+import { RubroType } from "./RubroType";
 import { StateType } from "./StateType";
-import { UnidadMedida } from "./UnidadMedida";
 
 export interface ArticuloInsumo {
   id: number;
@@ -8,10 +7,19 @@ export interface ArticuloInsumo {
   descripcion: string;
   precioVenta: number;
   estadoArticulo: StateType;
-  rubro: Rubro;
+  rubro: {
+    id: number;
+    denominacion: string;
+    estadoRubro: StateType;
+    tipoRubro: RubroType;
+  };
   precioCompra: number;
   stockActual: number;
   stockMinimo: number;
-  unidadMedida: UnidadMedida;
+  unidadMedida: {
+    id: number;
+    denominacion: string;
+    abreviatura: string;
+  };
   url_Imagen: string;
 }
