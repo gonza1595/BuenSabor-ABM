@@ -240,7 +240,6 @@ export default function ArticuloInsumoModal({
                   {/* Tipo Rubro */}
                   <Form.Group as={Col} controlId="formTipoRubro">
                     <Form.Label>Tipo Rubro</Form.Label>
-
                     <Form.Select
                       name="rubro"
                       value={
