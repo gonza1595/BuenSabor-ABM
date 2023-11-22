@@ -4,10 +4,12 @@ import { ModalType } from "../../types/ModalType";
 import { ArticuloInsumo } from "../../types/ArticuloInsumo";
 import { UnidadMedida } from "../../types/UnidadMedida";
 import { StateType } from "../../types/StateType";
+import { Rubro } from "../../types/Rubro";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { ArticuloInsumosServices } from "../../services/ArticuloInsumoServices";
 import { UnidadMedidaServices } from "../../services/UnidadMedidaServices";
+import { RubroServices } from "../../services/RubroServices";
 import { toast } from "react-toastify";
 
 type ArticuloInsumoModalProps = {
@@ -29,6 +31,18 @@ export default function ArticuloInsumoModal({
 }: ArticuloInsumoModalProps) {
   //Estado que contiene las unidades de medida recibidos de nuestra API
   const [unidad, setUnidad] = useState<UnidadMedida[]>([]);
+
+  //Estado que contiene los rubros recibidos de nuestra API
+  const [rubros, setRubros] = useState<Rubro[]>([]);
+
+  //Usamos este hook para obtener los rubros cada vez que se renderice el componente
+  useEffect(() => {
+    const fetchRubros = async () => {
+      const rubros = await RubroServices.getRubros();
+      setRubros(rubros);
+    };
+    fetchRubros();
+  }, []);
 
   //Usamos este hook para obtener las unidades de medida cada vez que se renderice el componente
   useEffect(() => {
@@ -93,6 +107,10 @@ export default function ArticuloInsumoModal({
     return Yup.object().shape({
       id: Yup.number().integer().min(0),
       denominacion: Yup.string().required("El nombre es requerido"),
+      rubro: Yup.object().shape({
+        id: Yup.number().integer().min(0),
+        denominacion: Yup.string().required("El rubro es requerido"),
+      }),
       unidadMedida: Yup.object().shape({
         id: Yup.number().integer().min(0),
         denominacion: Yup.string().required("La unidad de medida es requerida"),
@@ -184,6 +202,7 @@ export default function ArticuloInsumoModal({
                   {/* Unidad de Medida */}
                   <Form.Group as={Col} controlId="formUnidadMedida">
                     <Form.Label>Unidad de Medida</Form.Label>
+
                     <Form.Select
                       name="unidadMedida"
                       value={
@@ -210,6 +229,44 @@ export default function ArticuloInsumoModal({
                       {unidad.map((unidad) => (
                         <option key={unidad.id} value={unidad.id}>
                           {unidad.denominacion}
+                        </option>
+                      ))}
+                    </Form.Select>
+                    <Form.Control.Feedback type="invalid">
+                      {formik.errors.unidadMedida?.denominacion}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+
+                  {/* Tipo Rubro */}
+                  <Form.Group as={Col} controlId="formTipoRubro">
+                    <Form.Label>Tipo Rubro</Form.Label>
+
+                    <Form.Select
+                      name="rubro"
+                      value={
+                        formik.values.rubro?.denominacion
+                          ? formik.values.rubro?.denominacion
+                          : ""
+                      }
+                      onChange={(e) => {
+                        const selectedRubroId = e.target.value;
+                        const selectedRubro = rubros.find(
+                          (rub) => rub.id === parseInt(selectedRubroId)
+                        );
+
+                        // Setea el objeto completo de unidad de medida
+                        formik.setFieldValue("rubro", selectedRubro);
+                      }}
+                      onBlur={formik.handleBlur}
+                      isInvalid={Boolean(
+                        formik.errors.rubro?.denominacion &&
+                          formik.touched.rubro?.denominacion
+                      )}
+                    >
+                      <option value="">Selecciona un rubro</option>
+                      {rubros.map((r) => (
+                        <option key={r.id} value={r.id}>
+                          {r.denominacion}
                         </option>
                       ))}
                     </Form.Select>
