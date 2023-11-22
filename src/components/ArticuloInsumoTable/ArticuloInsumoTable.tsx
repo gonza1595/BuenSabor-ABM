@@ -4,7 +4,6 @@ import { ModalType } from "../../types/ModalType";
 import { ArticuloInsumo } from "../../types/ArticuloInsumo";
 import { RubroType } from "../../types/RubroType";
 import { StateType } from "../../types/StateType";
-import BuyButton from "../BuyButton/BuyButton";
 import DeleteButton from "../DeleteButton/DeleteButton";
 import EditButton from "../EditButton/EditButton";
 import Loader from "../Loader/Loader";
@@ -83,7 +82,7 @@ export default function ArticuloInsumoTable() {
         className="mt-4 mb-3"
         onClick={() =>
           handleClick(
-            "Nuevo Rubro",
+            "Nuevo Ingrediente",
             initializableNewArticuloInsumo(),
             ModalType.CREATE
           )
@@ -103,7 +102,6 @@ export default function ArticuloInsumoTable() {
               <th>Stock Minimo</th>
               <th>Stock Actual</th>
               <th>Diferencia Stock</th>
-              <th>Comprar</th>
               <th>Editar</th>
               <th>Eliminar</th>
             </tr>
@@ -116,17 +114,6 @@ export default function ArticuloInsumoTable() {
                 <td>{articulo.stockMinimo}</td>
                 <td>{articulo.stockActual}</td>
                 <td>{articulo.stockActual - articulo.stockMinimo}</td>
-                <td>
-                  <BuyButton
-                    onClick={() =>
-                      handleClick(
-                        "Registrar Compra",
-                        articulo,
-                        ModalType.CREATE
-                      )
-                    }
-                  />
-                </td>
                 <td>
                   <EditButton
                     onClick={() =>

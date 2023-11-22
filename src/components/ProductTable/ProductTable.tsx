@@ -128,8 +128,8 @@ export default function ProductTable() {
               <tr className="text-center">
                 <td>{product.denominacion}</td>
                 <td>{product.rubro?.denominacion}</td>
-                <td>{product.tiempoEstimadoCocina}</td>
-                <td>{product.precioVenta}</td>
+                <td>{product.tiempoEstimadoCocina} min</td>
+                <td>$ {product.precioVenta}</td>
 
                 <td>{product.estadoArticulo}</td>
                 <td>
